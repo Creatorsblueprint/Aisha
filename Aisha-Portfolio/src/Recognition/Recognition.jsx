@@ -57,7 +57,7 @@ const Recognition = () => {
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                         viewport={{ once: true }}
                     >
-                        <img src="Images/Aisha/Aisha_1.svg" alt="Aisha Portrait" />
+                        <img src="Images/Aisha/Aisha_1.png" alt="Aisha Portrait" />
                     </motion.div>
                 </motion.div>
 

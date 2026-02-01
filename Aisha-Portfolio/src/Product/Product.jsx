@@ -57,7 +57,7 @@ const Product = ({ setPaymentActive }) => {
                 transition={{ duration: 0.7, ease: "easeOut" }}
                 viewport={{ once: true }}
             >
-                <h1>Pastry Pro Path</h1>
+                <h1>Bake It Right</h1>
                 <p>For bakers who want more than recipes, this is the craft</p>
             </motion.div>
 
@@ -95,7 +95,7 @@ const Product = ({ setPaymentActive }) => {
                                     <PayPalButtons
                                         style={{ layout: "vertical" }}
                                         createOrder={async () => {
-                                            const res = await fetch(`https://aishabackend-6h3t.onrender.com/api/create-order`, {
+                                            const res = await fetch(`http://localhost:3000/api/create-order`, {
                                                 method: "POST",
                                                 headers: { "Content-Type": "application/json" },
                                                 body: JSON.stringify({
@@ -115,7 +115,7 @@ const Product = ({ setPaymentActive }) => {
                                         }}
                                         onApprove={async (data) => {
 
-                                            const res = await fetch(`https://aishabackend-6h3t.onrender.com/api/capture-order`, {
+                                            const res = await fetch(`http://localhost:3000/api/capture-order`, {
                                                 method: "POST",
                                                 headers: { "Content-Type": "application/json" },
                                                 body: JSON.stringify({
@@ -173,7 +173,7 @@ const Product = ({ setPaymentActive }) => {
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                     viewport={{ once: true }}
                 >
-                    <img src="Images/Ebook/ebook.svg" alt="Ebook" />
+                    <img src="Images/Ebook/ebook.png" alt="Ebook" />
                 </motion.div>
             </div>
 

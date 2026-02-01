@@ -20,7 +20,7 @@ const Home = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     viewport={{ once: true }}
                 >
-                    <img src="Images/Hero/hero_1.svg" alt="" />
+                    <img src="Images/Hero/hero_1.png" alt="" />
                 </motion.div>
 
                 {/* Right Text */}
