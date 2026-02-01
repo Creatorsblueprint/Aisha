@@ -95,7 +95,7 @@ const Product = ({ setPaymentActive }) => {
                                     <PayPalButtons
                                         style={{ layout: "vertical" }}
                                         createOrder={async () => {
-                                            const res = await fetch(`http://localhost:3000/api/create-order`, {
+                                            const res = await fetch(`https://aishabackend-6h3t.onrender.com/api/create-order`, {
                                                 method: "POST",
                                                 headers: { "Content-Type": "application/json" },
                                                 body: JSON.stringify({
@@ -115,7 +115,7 @@ const Product = ({ setPaymentActive }) => {
                                         }}
                                         onApprove={async (data) => {
 
-                                            const res = await fetch(`http://localhost:3000/api/capture-order`, {
+                                            const res = await fetch(`https://aishabackend-6h3t.onrender.com/api/capture-order`, {
                                                 method: "POST",
                                                 headers: { "Content-Type": "application/json" },
                                                 body: JSON.stringify({
