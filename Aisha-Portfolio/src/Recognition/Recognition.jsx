@@ -8,7 +8,7 @@ const Recognition = () => {
             title: "Gulf Magazine Feature",
             text: (
                 <>
-                    Featured by <a href="https://gulfmagazine.co/category/entrepreneurs/" target="_blank" rel="noreferrer"><span>Gulf Magazine</span><i className="ri-arrow-right-up-line"></i></a>, Aisha’s story highlights her bold pivot from a medicine path (NEET) into pastry, and how she built her career through consistency, long kitchen hours, and relentless learning, now carving a name for herself in Saudi Arabia (Red Sea Island).
+                    Featured by <a href="https://gulfmagazine.co/aisha-ray-fasal-how-passion-and-dedication/" target="_blank" rel="noreferrer"><span>Gulf Magazine</span><i className="ri-arrow-right-up-line"></i></a>, Aisha’s story highlights her bold pivot from a medicine path (NEET) into pastry, and how she built her career through consistency, long kitchen hours, and relentless learning, now carving a name for herself in Saudi Arabia (Red Sea Island).
                 </>
             ),
             image: "Images/recognition/rec_1.jpg",
@@ -46,7 +46,7 @@ const Recognition = () => {
                     viewport={{ once: true }}
                 >
                     <div className={styles.sectionHeader}>
-                        <h1>Culinary Recognition Celebration</h1>
+                        <h1>Recognitions in the Middle East</h1>
                         <p>Discover my journey to achieving culinary excellence through my recognitions in the UAE</p>
                     </div>
 
