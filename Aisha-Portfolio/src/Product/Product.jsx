@@ -41,7 +41,7 @@ const Product = ({ setPaymentActive }) => {
 
 
 
-    const PAYPAL_CLIENT_ID = 'AbI5SbpG49bG4LAUsCTBGrEXU0O9Gj4CkkvulY6cFNOfcMncuVI-7B2pTHZrIRpozNZ4uxw6Am43-FGF'
+    const PAYPAL_CLIENT_ID = 'AXGkIV7ybLqa29F_XqQNmErjOjbtNuKydQz4NCa-KghL3AMVCmmdNlBhKiLpfeFqBFzFDu2-A-iMP3Rl'
 
 
 
