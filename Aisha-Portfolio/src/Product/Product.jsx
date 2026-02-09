@@ -165,7 +165,7 @@ const Product = () => {
                                 variants={softFadeUp}
                             >
                                 <h1>Price</h1>
-                                <p>$29</p>
+                                <p>AED 25</p>
                                 <p>After payment, eBook will be sent to given email (Check spam/junk folder if you dont see it in a few minutes.)</p>
                             </motion.div>
                         </div>
