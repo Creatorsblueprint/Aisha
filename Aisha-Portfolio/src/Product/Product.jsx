@@ -27,7 +27,7 @@ const Product = () => {
 
     const productInfo = {
         title: "From Home-Level to Chef-Level Pastry",
-        amount: "29",
+        amount: "25",
         successUrl: "https://lebohangdev.github.io/Aisha/?payment=success",
         cancelUrl: "https://lebohangdev.github.io/Aisha/?payment=cancel",
     };
