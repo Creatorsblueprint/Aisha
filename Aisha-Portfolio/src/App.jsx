@@ -16,6 +16,14 @@ function App() {
   const containerRef = useRef(null);
   const [paymentActive, setPaymentActive] = useState(null);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const payment = params.get("payment");
+    if (payment === "success") setPaymentActive("PaymentSuccess");
+    if (payment === "cancel") setPaymentActive("PaymentCancel");
+  }, []);
+
+
 
 
 
@@ -53,18 +61,16 @@ function App() {
       <div className="footer">
         <Footer />
       </div>
+      <div className={paymentActive === 'PaymentSuccess' ? 'activeSection' : 'notActiveSection'}>
+        <PaymentSuccess setPaymentActive={setPaymentActive} />
+      </div>
 
-      {paymentActive === 'PaymentSuccess' ? (
-        <div className="activeSection">
-          <PaymentSuccess setPaymentActive={setPaymentActive} />
-        </div>
-      ) : null}
+      <div className={paymentActive === 'PaymentCancel' ? 'activeSection' : 'notActiveSection'}>
+        <PaymentCancel setPaymentActive={setPaymentActive} />
+      </div>
 
-      {paymentActive === 'PaymentCancel' ? (
-        <div className="activeSection">
-          <PaymentCancel setPaymentActive={setPaymentActive} />
-        </div>
-      ) : null}
+
+
 
     </div>
   );

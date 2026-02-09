@@ -1,24 +1,83 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
 import styles from './Product.module.css';
 
-const Product = ({ setPaymentActive }) => {
+const Product = () => {
 
     const [email, setEmail] = useState('');
-    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isValidEmail, setIsValidEmail] = useState(false);
     const benefitsRef = useRef(null);
+
+
+
+
+
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    };
+
+    const handleEmailChange = (e) => {
+        const val = e.target.value;
+        setEmail(val);
+        setIsValidEmail(validateEmail(val));
+    };
+
 
     const productInfo = {
         title: "From Home-Level to Chef-Level Pastry",
-        amount: "10",
+        amount: "29",
+        successUrl: "https://lebohangdev.github.io/Aisha/?payment=success",
+        cancelUrl: "https://lebohangdev.github.io/Aisha/?payment=cancel",
     };
 
-    const scrollToBenefits = () => {
-        if (benefitsRef.current) {
-            benefitsRef.current.scrollIntoView({ behavior: "smooth" });
+    async function handleZinnaPayment(bookChoice) {
+        try {
+            const paidBook = {
+                amount: bookChoice.amount,
+                title: bookChoice.title,
+                email: email,
+                successUrl: bookChoice.successUrl,
+                cancelUrl: bookChoice.cancelUrl,
+            }
+            console.log(paidBook);
+
+            const res = await fetch('https://aishabackend-6h3t.onrender.com/api/create-payment-intent', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(paidBook),
+            });
+            console.log(paidBook);
+
+            const data = await res.json()
+            console.log("data:", data);
+
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+                console.log("redirect url:", data.redirect_url)
+            } else {
+                console.error("No redirect_url found in response", data);
+            }
+
+        } catch (e) {
+            console.error("failed to send request to create payment session for user:", e)
         }
+    }
+
+    const handleCheckout = (product) => {
+        handleZinnaPayment(product);
     };
+
+    const softFadeUp = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    };
+
+    const buttonHover = { scale: 1.02 };
+
+
+
 
 
     const benefitsItems = [
@@ -29,19 +88,11 @@ const Product = ({ setPaymentActive }) => {
         { icon: "ri-line-chart-line", description: "Know what to do when something goes wrong and how to fix it without panicking." },
     ];
 
-    const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase());
-
-    const handleEmailChange = (e) => {
-        const val = e.target.value;
-        setEmail(val);
-        setIsEmailValid(validateEmail(val));
-    };
 
 
 
 
 
-    const PAYPAL_CLIENT_ID = 'AXGkIV7ybLqa29F_XqQNmErjOjbtNuKydQz4NCa-KghL3AMVCmmdNlBhKiLpfeFqBFzFDu2-A-iMP3Rl'
 
 
 
@@ -83,85 +134,41 @@ const Product = ({ setPaymentActive }) => {
                         </p>
 
                         <div className={styles.ProductContentBodyButton}>
-                            {/* PAYPAL */}
-                            <div style={{ marginTop: 16 }}>
-                                <PayPalScriptProvider
-                                    options={{
-                                        clientId: PAYPAL_CLIENT_ID,
-                                        currency: productInfo.currency,
-                                        intent: "capture",
-                                    }}
+                            <motion.div
+                                className={styles.productEmailField}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true }}
+                                variants={softFadeUp}
+                            >
+                                <p className={isValidEmail ? styles.valid : styles.invalid}>*Enter a valid email</p>
+                                <input
+                                    type="text"
+                                    value={email}
+                                    placeholder="Enter your email"
+                                    onChange={handleEmailChange}
+                                />
+                                <motion.button
+                                    disabled={!isValidEmail}
+                                    whileHover={isValidEmail ? buttonHover : ""}
+                                    onClick={() => { handleCheckout(productInfo); setEmail(''); }}
                                 >
-                                    <PayPalButtons
-                                        style={{ layout: "vertical" }}
-                                        createOrder={async () => {
-                                            const res = await fetch(`https://aishabackend-6h3t.onrender.com/api/create-order`, {
-                                                method: "POST",
-                                                headers: { "Content-Type": "application/json" },
-                                                body: JSON.stringify({
-                                                    amount: productInfo.amount,
-                                                    currency: productInfo.currency,
-                                                    email,
-                                                }),
-                                            });
+                                    GET STARTED NOW!
+                                </motion.button>
+                            </motion.div>
 
-                                            const data = await res.json();
-
-
-
-
-
-                                            return data.id;
-                                        }}
-                                        onApprove={async (data) => {
-
-                                            const res = await fetch(`https://aishabackend-6h3t.onrender.com/api/capture-order`, {
-                                                method: "POST",
-                                                headers: { "Content-Type": "application/json" },
-                                                body: JSON.stringify({
-                                                    id: data.orderID,
-                                                    email,
-                                                }),
-                                            });
-
-                                            const details = await res.json();
-
-
-
-
-
-                                            setEmail("");
-                                            setIsEmailValid(false);
-
-                                            console.log("Capture details:", details);
-
-
-
-                                            setPaymentActive("PaymentSuccess");
-                                        }}
-                                        onCancel={() => {
-                                            setPaymentActive("PaymentCancel");
-                                        }}
-
-                                    />
-                                </PayPalScriptProvider>
-
-                            </div>
+                            <motion.div
+                                className={styles.priceContainer}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true }}
+                                variants={softFadeUp}
+                            >
+                                <h1>Price</h1>
+                                <p>$29</p>
+                                <p>After payment, eBook will be sent to given email (Check spam/junk folder if you dont see it in a few minutes.)</p>
+                            </motion.div>
                         </div>
-
-                        <div className={styles.ProductContentPrice}>
-                            <div className={styles.price}>
-                                <p>Price</p>
-                                <p>${productInfo.amount}</p>
-                            </div>
-
-                            <div className={styles.why} onClick={scrollToBenefits}>
-                                <p>Why buy this Ebook?</p>
-                                <i className="ri-arrow-down-circle-line"></i>
-                            </div>
-                        </div>
-
-
                     </div>
                 </motion.div>
 
