@@ -34,7 +34,7 @@ const Footer = () => {
 
             </div>
             <hr />
-            <p>© 2025 Aisha Ray. All rights reserved. | www.creatorsblueprint.net</p>
+            <p>© {new Date().getFullYear()} Aisha Ray. All rights reserved. | www.creatorsblueprint.net</p>
 
 
 
