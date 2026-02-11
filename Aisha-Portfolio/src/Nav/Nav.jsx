@@ -1,10 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import { NavLink, useLocation, Link } from 'react-router-dom';
 import styles from './Nav.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Nav = ({ activeNav, setActiveNav, containerRef }) => {
+const Nav = ({ containerRef }) => {
     const [hamMenu, setHamMenu] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
+    const location = useLocation();
 
     let lastScrollTop = 0;
 
@@ -65,20 +67,22 @@ const Nav = ({ activeNav, setActiveNav, containerRef }) => {
                     <nav >
                         <ul>
                             <div className={styles.nav_logo}>
-                                <img src="Images/Logos/nav_logo.svg" alt="Logo" />
+                                <Link to="/">
+                                    <img src="/Images/Logos/nav_logo.svg" alt="Logo" />
+                                </Link>
                             </div>
                             <div className={styles.nav_links}>
-                                <li className={activeNav === 'Home' ? styles.active : ''}>
-                                    <a href="#Home" onClick={() => setActiveNav('Home')}>Home</a>
+                                <li className={location.pathname === '/' ? styles.active : ''}>
+                                    <Link to="/">Home</Link>
                                 </li>
-                                <li className={activeNav === 'Recognition' ? styles.active : ''}>
-                                    <a href="#Recognition" onClick={() => setActiveNav('Recognition')} >Recognition</a>
+                                <li className={location.pathname === '/recognition' ? styles.active : ''}>
+                                    <Link to="/recognition" >Recognition</Link>
                                 </li>
-                                <li className={activeNav === 'Product' ? styles.active : ''}>
-                                    <a href="#Product" onClick={() => setActiveNav('Product')} >Product</a>
+                                <li className={location.pathname === '/product' ? styles.active : ''}>
+                                    <Link to="/product" >Product</Link>
                                 </li>
-                                <li className={activeNav === 'Gallery' ? styles.active : ''}>
-                                    <a href="#Gallery" onClick={() => setActiveNav('Gallery')} >Gallery</a>
+                                <li className={location.pathname === '/gallery' ? styles.active : ''}>
+                                    <Link to="/gallery" >Gallery</Link>
                                 </li>
                             </div>
                             <div className={styles.nav_contact}>
@@ -109,10 +113,12 @@ const Nav = ({ activeNav, setActiveNav, containerRef }) => {
             <div className={styles.hamburgerContainer}>
                 <div className={styles.hamHeader}>
                     <div className={styles.nav_logo}>
-                        <img src="Images/Logos/nav_logo.svg" alt="Logo" />
+                        <Link to="/">
+                            <img src="/Images/Logos/nav_logo.svg" alt="Logo" />
+                        </Link>
                     </div>
                     <img
-                        src="Images/hamburger.svg"
+                        src="/Images/hamburger.svg"
                         alt="Menu"
                         className={styles.hamburgerIcon}
                         onClick={(e) => { e.preventDefault(); setHamMenu(true) }}
@@ -129,25 +135,25 @@ const Nav = ({ activeNav, setActiveNav, containerRef }) => {
                             transition={{ duration: 0.3, ease: 'easeInOut' }}
                         >
                             <div className={styles.close}>
-                                <img src="Images/close.svg" alt="Close" className={styles.closeIcon} onClick={(e) => { e.preventDefault(); setHamMenu(false) }} />
+                                <img src="/Images/close.svg" alt="Close" className={styles.closeIcon} onClick={(e) => { e.preventDefault(); setHamMenu(false) }} />
                             </div>
 
                             <ul>
                                 <li>
-                                    <i class="ri-home-6-line"></i>
-                                    <a href="#Home" onClick={() => { setActiveNav('Home'); setHamMenu(false); }}>Home</a>
+                                    <i className="ri-home-6-line"></i>
+                                    <Link to="/" onClick={() => setHamMenu(false)}>Home</Link>
                                 </li>
                                 <li>
-                                    <i class="ri-meteor-line"></i>
-                                    <a href="#Recognition" onClick={() => { setActiveNav('Recognition'); setHamMenu(false); }} >Recognition</a>
+                                    <i className="ri-meteor-line"></i>
+                                    <Link to="/recognition" onClick={() => setHamMenu(false)} >Recognition</Link>
                                 </li>
                                 <li>
-                                    <i class="ri-shopping-cart-2-line"></i>
-                                    <a href="#Product" onClick={() => { setActiveNav('Product'); setHamMenu(false); }} >Product</a>
+                                    <i className="ri-shopping-cart-2-line"></i>
+                                    <Link to="/product" onClick={() => setHamMenu(false)} >Product</Link>
                                 </li>
                                 <li>
-                                    <i class="ri-multi-image-line"></i>
-                                    <a href="#Gallery" onClick={() => { setActiveNav('Gallery'); setHamMenu(false); }} >Gallery</a>
+                                    <i className="ri-multi-image-line"></i>
+                                    <Link to="/gallery" onClick={() => setHamMenu(false)} >Gallery</Link>
                                 </li>
                             </ul>
 

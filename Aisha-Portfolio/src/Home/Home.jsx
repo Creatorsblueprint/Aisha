@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import styles from './Home.module.css';
 
 const Home = () => {
-    const scrollToSection = (id) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+    const navigate = useNavigate();
 
     return (
         <div id='Home' className={styles.homeContainer}>
@@ -59,8 +55,8 @@ const Home = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.6 }}
                         >
-                            <button className={styles.btnPrimary} onClick={() => scrollToSection('Recognition')}>Learn more</button>
-                            <button className={styles.btnSecondary} onClick={() => scrollToSection('Product')}>BUY PRODUCT</button>
+                            <button className={styles.btnPrimary} onClick={() => navigate('/recognition')}>Learn more</button>
+                            <button className={styles.btnSecondary} onClick={() => navigate('/product')}>BUY PRODUCT</button>
                         </motion.div>
                     </div>
                 </motion.div>

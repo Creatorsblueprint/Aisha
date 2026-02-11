@@ -1,5 +1,5 @@
-
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Home from './Home/Home';
 import Recognition from './Recognition/Recognition';
 import Product from './Product/Product';
@@ -12,9 +12,9 @@ import Footer from './Footer/Footer';
 
 function App() {
 
-  const [activeNav, setActiveNav] = useState('Home');
   const containerRef = useRef(null);
   const [paymentActive, setPaymentActive] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -23,39 +23,33 @@ function App() {
     if (payment === "cancel") setPaymentActive("PaymentCancel");
   }, []);
 
-
-
-
-
-
-
-
+  useEffect(() => {
+    if (location.pathname === '/' || location.pathname === '') {
+      const element = document.getElementById('Home');
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
+    } else if (location.pathname === '/recognition') {
+      const element = document.getElementById('Recognition');
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
+    } else if (location.pathname === '/product') {
+      const element = document.getElementById('Product');
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
+    } else if (location.pathname === '/gallery') {
+      const element = document.getElementById('Gallery');
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location]);
 
   return (
     <div className="app" ref={containerRef} >
       <div className={'header'} >
-        <Nav activeNav={activeNav} setActiveNav={setActiveNav} containerRef={containerRef} />
-
+        <Nav containerRef={containerRef} />
       </div>
 
       <div className="main">
-
-        <div className={activeNav === 'Home' ? 'home active' : 'home'}>
-          <Home />
-
-        </div>
-        <div className={activeNav === 'Recognition' ? 'recognition active' : 'recognition'}>
-          <Recognition />
-
-        </div>
-        <div className={activeNav === 'Product' ? 'product active' : 'product'}>
-          <Product setPaymentActive={setPaymentActive} />
-
-        </div>
-        <div className={activeNav === 'Gallery' ? 'gallery active' : 'gallery'}>
-          <Gallery />
-
-        </div>
+        <Home />
+        <Recognition />
+        <Product setPaymentActive={setPaymentActive} />
+        <Gallery />
       </div>
 
       <div className="footer">
