@@ -24,19 +24,37 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (location.pathname === '/' || location.pathname === '') {
-      const element = document.getElementById('Home');
-      if (element) element.scrollIntoView({ behavior: 'smooth' });
-    } else if (location.pathname === '/recognition') {
-      const element = document.getElementById('Recognition');
-      if (element) element.scrollIntoView({ behavior: 'smooth' });
-    } else if (location.pathname === '/product') {
-      const element = document.getElementById('Product');
-      if (element) element.scrollIntoView({ behavior: 'smooth' });
-    } else if (location.pathname === '/gallery') {
-      const element = document.getElementById('Gallery');
-      if (element) element.scrollIntoView({ behavior: 'smooth' });
-    }
+    const scrollToSection = () => {
+      const path = location.pathname.toLowerCase();
+      let elementId = '';
+
+      if (path === '/' || path === '' || path.endsWith('index.html')) {
+        elementId = 'Home';
+      } else if (path.includes('recognition')) {
+        elementId = 'Recognition';
+      } else if (path.includes('product')) {
+        elementId = 'Product';
+      } else if (path.includes('gallery')) {
+        elementId = 'Gallery';
+      }
+
+      if (elementId) {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    // Scroll immediately
+    scrollToSection();
+
+    // Retry after short delay to ensure layout is ready (images/fonts loading)
+    const timer = setTimeout(() => {
+      scrollToSection();
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [location]);
 
   return (
