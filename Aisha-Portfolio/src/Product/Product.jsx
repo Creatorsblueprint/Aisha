@@ -28,8 +28,8 @@ const Product = () => {
     const productInfo = {
         title: "From Home-Level to Chef-Level Pastry",
         amount: "25",
-        successUrl: "https://lebohangdev.github.io/Aisha/?payment=success",
-        cancelUrl: "https://lebohangdev.github.io/Aisha/?payment=cancel",
+        successUrl: "https://aisharay.com/?payment=success",
+        cancelUrl: "https://aisharay.com/?payment=cancel",
     };
 
     async function handleZinnaPayment(bookChoice) {
